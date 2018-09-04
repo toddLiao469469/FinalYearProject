@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 if(msg.what == MESSAGE_READ){ //收到MESSAGE_READ 開始接收資料
                     String readMessage = null;
                     try {
-                        readMessage = new String((byte[]) msg.obj, "UTF-8");
+                            readMessage = new String((byte[]) msg.obj, "UTF-8");
                         readMessage =  readMessage.substring(0,1);
                         //取得傳過來字串的第一個字元，其餘為雜訊
                         _recieveData += readMessage; //拼湊每次收到的字元成字串
