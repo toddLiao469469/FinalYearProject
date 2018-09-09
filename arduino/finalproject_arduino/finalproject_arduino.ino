@@ -21,7 +21,7 @@ void setup()
 {  
   Serial.begin(9600);   
   BT.begin(9600);       //HC-06 預設 baud  
-  Serial.println("test");
+  Serial.println("branchtest");
 
   pulseSensor.analogInput(PulseWire);   
   pulseSensor.blinkOnPulse(LED13);       
