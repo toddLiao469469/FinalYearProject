@@ -21,7 +21,11 @@ void setup()
 {  
   Serial.begin(9600);   
   BT.begin(9600);       //HC-06 預設 baud  
+<<<<<<< HEAD
   Serial.println("branchtest");
+=======
+  Serial.println("branch");
+>>>>>>> arduino
 
   pulseSensor.analogInput(PulseWire);   
   pulseSensor.blinkOnPulse(LED13);       
