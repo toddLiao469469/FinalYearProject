@@ -1,0 +1,4 @@
+#Sun Sep 09 16:50:41 CST 2018
+base.0=/Users/xu_jun_xiang/Desktop/專題＿test 2/app/build/intermediates/transforms/dexMerger/debug/10
+path.0=classes.dex
+renamed.0=classes.dex
