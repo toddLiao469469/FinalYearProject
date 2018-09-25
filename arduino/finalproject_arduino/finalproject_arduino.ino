@@ -6,7 +6,7 @@
 #define blueTooth_TX 7
 #define PulseWire A1
 #define LED13 13
-#define BPMCount 20
+#define BPMCount 10
 
 int Threshold = 550;
 SoftwareSerial BT(blueTooth_RX,blueTooth_TX);   // 接收腳(RX), 傳送腳(TX)；接HC-06之TXD、RXD   
@@ -32,20 +32,18 @@ void setup()
     Serial.println("We created a pulseSensor Object !");  //This prints one time at Arduino power-up,  or on Arduino reset.  
   }
   
-  Serial.print("21312321");
-  BT.write("A");
 }  
   
 void loop()  
 {  
+  if(pulseSensor.sawStartOfBeat()){
   int myBPM = pulseSensor.getBeatsPerMinute();  
   if(myBPM <=255 && myBPM >=0){
     myBPMAverage += myBPM;
   }
-  if (pulseSensor.sawStartOfBeat()) {             
+         
     Serial.print("BPM: ");                        
     Serial.println(myBPM);                         
-  }
 
   if(myBPMCount < BPMCount){
     myBPMCount++;
@@ -53,7 +51,7 @@ void loop()
   if(myBPMCount >= BPMCount){
     myBPMAverage /= myBPMCount;
   }
-  Serial.print("test aver:");
+  Serial.print("current:");
    Serial.println(myBPMAverage);
 
   delay(800);                    
@@ -72,10 +70,11 @@ void loop()
       Serial.println(pushBPM[i]);
       delay(500);
       BT.write(byte(pushBPM[i])); 
-    }
+      }
   
-  }  
+    }  
   
-}  
+  } 
+} 
 
 
