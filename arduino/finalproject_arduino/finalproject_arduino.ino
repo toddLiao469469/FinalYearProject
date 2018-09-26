@@ -36,44 +36,45 @@ void setup()
   
 void loop()  
 {  
-  if(pulseSensor.sawStartOfBeat()){
-  int myBPM = pulseSensor.getBeatsPerMinute();  
-  if(myBPM <=255 && myBPM >=0){
-    myBPMAverage += myBPM;
-  }
-         
-    Serial.print("BPM: ");                        
-    Serial.println(myBPM);                         
+  if(pulseSensor.sawStartOfBeat()){   
+    int myBPM = pulseSensor.getBeatsPerMinute();  
+    
+    //忽略異常值
+    if(myBPM <=255 && myBPM >=0){
+      myBPMAverage += myBPM;
+    }
+     
+      Serial.print("BPM: ");                        
+      Serial.println(myBPM);                         
+    
+    if(myBPMCount < BPMCount){
+      myBPMCount++;
+    }
+    if(myBPMCount >= BPMCount){
+      myBPMAverage /= myBPMCount;
+    }
+    Serial.print("current:");
+    Serial.println(myBPMAverage);
 
-  if(myBPMCount < BPMCount){
-    myBPMCount++;
-  }
-  if(myBPMCount >= BPMCount){
-    myBPMAverage /= myBPMCount;
-  }
-  Serial.print("current:");
-   Serial.println(myBPMAverage);
+    delay(800);
 
-  delay(800);                    
-
-  if(myBPMCount >= BPMCount){ //如果有收到資料  
-    char pushBPM[3];
-    pushBPM[0] =((myBPMAverage % 1000)- (myBPMAverage % 100))/100 + '0';
-    pushBPM[1] =((myBPMAverage % 100)- (myBPMAverage % 10))/10 + '0';
-    pushBPM[2] =(myBPMAverage % 10) + '0';
-     Serial.println("");
-     Serial.print("aver:");
-     Serial.println(myBPMAverage);
-     myBPMCount=0;
-     myBPMAverage=0;
-    for(int i = 0 ; i < 3 ; i++){
-      Serial.println(pushBPM[i]);
-      delay(500);
-      BT.write(byte(pushBPM[i])); 
-      }
-  
+    //如果心跳偵測次數到BPMCount開始傳送
+    if(myBPMCount >= BPMCount){ 
+      char pushBPM[3];
+      pushBPM[0] =((myBPMAverage % 1000)- (myBPMAverage % 100))/100 + '0';
+      pushBPM[1] =((myBPMAverage % 100)- (myBPMAverage % 10))/10 + '0';
+      pushBPM[2] =(myBPMAverage % 10) + '0';
+      Serial.println("");
+      Serial.print("aver:");
+      Serial.println(myBPMAverage);
+      myBPMCount=0;
+      myBPMAverage=0;
+      for(int i = 0 ; i < 3 ; i++){
+        Serial.println(pushBPM[i]);
+        delay(500);
+        BT.write(byte(pushBPM[i])); 
+        }
     }  
-  
   } 
 } 
 
