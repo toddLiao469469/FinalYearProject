@@ -6,7 +6,7 @@
 #define blueTooth_TX 7
 #define PulseWire A1
 #define LED13 13
-#define BPMCount 10
+#define MaxBPMCount 10
 
 int Threshold = 550;
 SoftwareSerial BT(blueTooth_RX,blueTooth_TX);   // 接收腳(RX), 傳送腳(TX)；接HC-06之TXD、RXD   
@@ -16,6 +16,7 @@ String recieveData = "";
 bool startRecieve = false;  
 int myBPMAverage = 0;
 int myBPMCount = 0;
+int myBPMAmount = 0;
 
 void setup()  
 {  
@@ -41,25 +42,24 @@ void loop()
     
     //忽略異常值
     if(myBPM <=255 && myBPM >=0){
-      myBPMAverage += myBPM;
+      myBPMAmount += myBPM;
     }
      
       Serial.print("BPM: ");                        
       Serial.println(myBPM);                         
     
-    if(myBPMCount < BPMCount){
+    if(myBPMCount < MaxBPMCount){
       myBPMCount++;
     }
-    if(myBPMCount >= BPMCount){
-      myBPMAverage /= myBPMCount;
-    }
+    
     Serial.print("current:");
-    Serial.println(myBPMAverage);
+    Serial.println(myBPMAmount);
 
     delay(800);
-
+    
     //如果心跳偵測次數到BPMCount開始傳送
-    if(myBPMCount >= BPMCount){ 
+    if(myBPMCount >= MaxBPMCount){ 
+      myBPMAverage = myBPMAmount /= myBPMCount;
       char pushBPM[3];
       pushBPM[0] =((myBPMAverage % 1000)- (myBPMAverage % 100))/100 + '0';
       pushBPM[1] =((myBPMAverage % 100)- (myBPMAverage % 10))/10 + '0';
