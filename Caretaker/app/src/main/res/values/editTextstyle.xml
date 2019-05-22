@@ -1,0 +1,7 @@
+
+<resources>
+    <style name="editTextstyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#EFCA84</item>
+        <item name="colorControlActivated">#EFCA84</item>
+    </style>
+</resources>

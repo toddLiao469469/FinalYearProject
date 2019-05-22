@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/general"
+            android:title="個人資料"/>
+        <item
+            android:id="@+id/binddevice"
+            android:title="綁定裝置" />
+        <item
+            android:id="@+id/caredata"
+            android:title="看護資料" />
+        <item
+            android:id="@+id/bindfamily"
+            android:title="綁定家人" />
+        <item
+            android:id="@+id/codesetting"
+            android:title="程式設置" />
+        <item
+            android:id="@+id/assesus"
+            android:title="評價我們" />
+        <item
+            android:id="@+id/aboutus"
+            android:title="關於我們" />
+        <item
+            android:id="@+id/logout"
+            android:title="登出" />
+    </group>
+
+
+
+</menu>
